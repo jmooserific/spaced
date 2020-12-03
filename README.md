@@ -2,6 +2,9 @@
 
 This app, which is very much a work in progress, will show the details of [SpaceX](https://www.spacex.com) rocket launches in an interesting way.
 
+
+[![CI](https://circleci.com/gh/jmooserific/spaced.svg?style=svg)](https://circleci.com/gh/jmooserific/spaced) [![Maintainability](https://api.codeclimate.com/v1/badges/7c2b0efe496e15651a83/maintainability)](https://codeclimate.com/github/jmooserific/spaced/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/7c2b0efe496e15651a83/test_coverage)](https://codeclimate.com/github/jmooserific/spaced/test_coverage)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
