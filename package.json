@@ -1,6 +1,7 @@
 {
   "name": "spaced",
   "version": "0.1.0",
+  "homepage": "https://jmooserific.github.io/spaced",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -21,7 +22,9 @@
     "build": "craco build",
     "test": "craco test --coverage",
     "eject": "react-scripts eject",
-    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}"
+    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}",
+    "predeploy": "craco build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -56,6 +59,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "4.0.0",
+    "gh-pages": "^3.1.0",
     "postcss": "7",
     "prettier": "^2.2.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
