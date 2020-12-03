@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Spaced
+
+This app, which is very much a work in progress, will show the details of [SpaceX](https://www.spacex.com) rocket launches in an interesting way.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
