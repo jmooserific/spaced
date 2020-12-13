@@ -1,5 +1,5 @@
 module.exports = {
-  purge: ["./src/**/*.tsx", "./public/index.html"],
+  // purge: ["./src/**/*.tsx", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
@@ -7,5 +7,6 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  // eslint-disable-next-line global-require
+  plugins: [require("@tailwindcss/typography")],
 };
