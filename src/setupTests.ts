@@ -3,3 +3,12 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
+
+import { setConsole } from "react-query";
+
+// Prevent react-query from logging expected errors to the console during tests
+setConsole({
+  log: () => undefined,
+  warn: () => undefined,
+  error: () => undefined,
+});
