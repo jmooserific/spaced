@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import useInfiniteScroll from "react-infinite-scroll-hook";
 import useInfiniteFetchLaunches from "../../hooks/launches/useInfiniteFetchLaunches";
 
 export default () => {
@@ -6,45 +7,36 @@ export default () => {
     status,
     data,
     error,
-    isFetchingMore,
+    isFetching,
     fetchMore,
     canFetchMore,
   } = useInfiniteFetchLaunches();
 
-  const loadMoreButtonRef = React.useRef<HTMLButtonElement>();
+  const infiniteRef = useInfiniteScroll<HTMLUListElement>({
+    loading: isFetching,
+    hasNextPage: !!canFetchMore,
+    onLoadMore: fetchMore,
+  });
 
   if (status === "loading") return <p>Loading...</p>;
   if (error) return <span>Error: {error.message}</span>;
 
-  /* eslint-disable no-nested-ternary */
   return (
     <div className="Launches prose" data-testid="launches-page">
       <h1>Launches</h1>
       <>
-        <ul data-testid="launches-list">
+        <ul ref={infiniteRef} data-testid="launches-list">
           {data &&
             data.map((query) => (
               <Fragment key={`page${query.page}`}>
                 {query.docs.map((launch) => (
-                  <li key={`launch${launch.id}`}>{launch.name}</li>
+                  <li key={`launch${launch.id}`} className="h-8">
+                    {launch.name}
+                  </li>
                 ))}
               </Fragment>
             ))}
         </ul>
-        <div>
-          <button
-            type="button"
-            ref={() => loadMoreButtonRef}
-            onClick={() => fetchMore()}
-            disabled={!canFetchMore || !!isFetchingMore}
-          >
-            {isFetchingMore
-              ? "Loading more..."
-              : canFetchMore
-              ? "Load More"
-              : "Nothing more to load"}
-          </button>
-        </div>
       </>
     </div>
   );

@@ -8,6 +8,7 @@ const optionsForQuery = (page: number) => {
   return {
     options: {
       page,
+      limit: 20,
       sort: { date_unix: "desc" },
       populate: {
         path: "cores",

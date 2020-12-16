@@ -1,9 +1,8 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { queryCache } from "react-query";
-import userEvent from "@testing-library/user-event";
 import {
   mockLaunchesQueryFailure,
   mockLaunchesQuerySuccess,
@@ -26,12 +25,12 @@ describe("<Launches />", () => {
         expect(screen.getByText("Launches")).toBeInTheDocument();
       });
 
-      expect(screen.getByTestId("launches-list").childElementCount).toBe(10);
+      expect(screen.getByTestId("launches-list").childElementCount).toBe(20);
 
-      userEvent.click(screen.getByText("Load More"));
+      await fireEvent.scroll(window, { target: { scrollY: 800 } });
 
       await waitFor(() => {
-        expect(screen.getByTestId("launches-list").childElementCount).toBe(15);
+        expect(screen.getByTestId("launches-list").childElementCount).toBe(30);
       });
     });
   });

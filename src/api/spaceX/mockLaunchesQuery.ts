@@ -96,11 +96,11 @@ const generateRecords = (count: number): Launch[] => {
 
 const urlToMock = new RegExp(`/v4/launches/query`);
 
-export const mockLaunchesQuerySuccess = (mock: MockAdapter, count = 15) => {
+export const mockLaunchesQuerySuccess = (mock: MockAdapter, count = 30) => {
   mock.onPost(urlToMock).reply(({ data }) => {
     const { options } = JSON.parse(data);
     const page: number = options?.page;
-    const limit: number = options?.limit || 10;
+    const limit: number = options?.limit;
     const offset = (page - 1) * limit;
     const docs = generateRecords(count).slice(offset, offset + limit);
     const totalPages = Math.ceil(count / limit);
