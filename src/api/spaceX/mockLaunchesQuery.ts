@@ -99,24 +99,22 @@ const urlToMock = new RegExp(`/v4/launches/query`);
 export const mockLaunchesQuerySuccess = (mock: MockAdapter, count = 30) => {
   mock.onPost(urlToMock).reply(({ data }) => {
     const { options } = JSON.parse(data);
-    const page: number = options?.page;
     const limit: number = options?.limit;
-    const offset = (page - 1) * limit;
-    const docs = generateRecords(count).slice(offset, offset + limit);
+    const docs = generateRecords(count);
     const totalPages = Math.ceil(count / limit);
 
     const response: Query<Launch[]> = {
       docs,
       totalDocs: count,
-      offset,
+      offset: 0,
       limit,
       totalPages,
-      page: page + 1,
-      pagingCounter: page + 1,
-      hasPrevPage: page !== 1,
-      hasNextPage: page !== totalPages,
-      prevPage: page === 1 ? undefined : page,
-      nextPage: page === totalPages ? undefined : page + 1,
+      page: 1,
+      pagingCounter: 1,
+      hasPrevPage: false,
+      hasNextPage: false,
+      prevPage: undefined,
+      nextPage: undefined,
     };
     return [200, response];
   });

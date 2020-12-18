@@ -1,5 +1,11 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { queryCache } from "react-query";
@@ -25,12 +31,11 @@ describe("<Launches />", () => {
         expect(screen.getByText("Launches")).toBeInTheDocument();
       });
 
-      expect(screen.getByTestId("launches-list").childElementCount).toBe(20);
-
-      await fireEvent.scroll(window, { target: { scrollY: 800 } });
-
       await waitFor(() => {
-        expect(screen.getByTestId("launches-list").childElementCount).toBe(30);
+        expect(
+          within(screen.getByTestId("launches-list")).getAllByRole("listitem")
+            .length
+        ).toBe(1);
       });
     });
   });

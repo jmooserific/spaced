@@ -1,22 +1,21 @@
-import React, { Fragment } from "react";
-import useInfiniteScroll from "react-infinite-scroll-hook";
-import useInfiniteFetchLaunches from "../../hooks/launches/useInfiniteFetchLaunches";
+import React, { useCallback } from "react";
+import ReactList from "react-list";
+import useFetchLaunches from "../../hooks/launches/useFetchLaunches";
 
 export default () => {
-  const {
-    status,
-    data,
-    error,
-    isFetching,
-    fetchMore,
-    canFetchMore,
-  } = useInfiniteFetchLaunches();
+  const { status, data, error } = useFetchLaunches();
 
-  const infiniteRef = useInfiniteScroll<HTMLUListElement>({
-    loading: isFetching,
-    hasNextPage: !!canFetchMore,
-    onLoadMore: fetchMore,
-  });
+  const renderItem = useCallback(
+    (index, key) => {
+      const launch = data && data.docs[index];
+      return (
+        <li key={key} className="launch h-16">
+          {launch?.name}
+        </li>
+      );
+    },
+    [data]
+  );
 
   if (status === "loading") return <p>Loading...</p>;
   if (error) return <span>Error: {error.message}</span>;
@@ -25,17 +24,13 @@ export default () => {
     <div className="Launches prose" data-testid="launches-page">
       <h1>Launches</h1>
       <>
-        <ul ref={infiniteRef} data-testid="launches-list">
-          {data &&
-            data.map((query) => (
-              <Fragment key={`page${query.page}`}>
-                {query.docs.map((launch) => (
-                  <li key={`launch${launch.id}`} className="h-8">
-                    {launch.name}
-                  </li>
-                ))}
-              </Fragment>
-            ))}
+        <ul data-testid="launches-list">
+          <ReactList
+            itemRenderer={renderItem}
+            length={data?.docs.length}
+            type="uniform"
+            useStaticSize
+          />
         </ul>
       </>
     </div>

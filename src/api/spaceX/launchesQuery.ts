@@ -3,30 +3,36 @@ import { Launch, Query } from "./types";
 
 const BASE_URL = "https://api.spacexdata.com";
 
-/** The necessary query options, including sorting, pagination, and what child objects to include. */
-const optionsForQuery = (page: number) => {
+/** The necessary query options, including what child objects to include. */
+const optionsForQuery = () => {
   return {
     options: {
-      page,
-      limit: 20,
-      sort: { date_unix: "desc" },
-      populate: {
-        path: "cores",
-        populate: [
-          {
-            path: "core",
-          },
-        ],
+      limit: 9999,
+      sort: {
+        date_unix: "desc",
       },
+      select: {
+        name: true,
+        details: true,
+        flight_number: true,
+        upcoming: true,
+        date_utc: true,
+        date_precision: true,
+      },
+      populate: [
+        {
+          path: "cores",
+        },
+      ],
     },
   };
 };
 
-/** Retrieve a paginated list of launches. */
-export default async (_key: string, page = 1) => {
+/** Retrieve the list of launches. */
+export default async () => {
   const { data } = await axios.post<Query<Launch[]>>(
     `${BASE_URL}/v4/launches/query`,
-    optionsForQuery(page)
+    optionsForQuery()
   );
   return data;
 };
