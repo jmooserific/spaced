@@ -3,7 +3,7 @@ import Launches from "./pages/launches/Launches";
 
 const App: FC = () => {
   return (
-    <div className="App container mx-auto" style={{ maxWidth: "65ch" }}>
+    <div className="App">
       <Launches />
     </div>
   );
