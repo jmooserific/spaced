@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import ReactList from "react-list";
+import Rocket from "../../components/rocket/Rocket";
 import useFetchLaunches from "../../hooks/launches/useFetchLaunches";
 
 export default () => {
@@ -14,6 +15,7 @@ export default () => {
           className="launch w-64 h-full inline-block relative"
           title={launch?.name}
         >
+          <Rocket />
           <div className="absolute h-8 bottom-10 align-text-top">
             {launch?.name}
           </div>
