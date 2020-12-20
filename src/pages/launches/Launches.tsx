@@ -15,7 +15,7 @@ export default () => {
           className="launch w-64 h-full inline-block relative"
           title={launch?.name}
         >
-          <Rocket />
+          {launch && <Rocket launch={launch} />}
           <div className="absolute h-8 bottom-10 align-text-top">
             {launch?.name}
           </div>
@@ -42,6 +42,7 @@ export default () => {
         type="uniform"
         useStaticSize
         axis="x"
+        minSize={10}
       />
     </div>
   );

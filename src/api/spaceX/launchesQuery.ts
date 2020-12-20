@@ -21,7 +21,11 @@ const optionsForQuery = () => {
       },
       populate: [
         {
-          path: "cores",
+          path: "payloads",
+          select: {
+            name: true,
+            type: true,
+          },
         },
       ],
     },

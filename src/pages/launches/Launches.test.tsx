@@ -29,7 +29,7 @@ describe("<Launches />", () => {
         expect(
           within(screen.getByTestId("launches-list")).getAllByRole("listitem")
             .length
-        ).toBe(1);
+        ).toBe(10);
       });
     });
   });
