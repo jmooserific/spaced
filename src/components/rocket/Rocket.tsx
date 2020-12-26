@@ -8,7 +8,7 @@ interface RocketProps {
 }
 
 export default ({ launch }: RocketProps) => {
-  if (launch.payloads && launch.payloads[0].type !== "Satellite") {
+  if (launch.payloads[0] && launch.payloads[0].type !== "Satellite") {
     return <Falcon9b5Dragon />;
   }
   return <Falcon9b5 />;
